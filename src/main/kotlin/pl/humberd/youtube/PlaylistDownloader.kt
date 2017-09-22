@@ -17,14 +17,14 @@ class PlaylistDownloader(val playlistService: YoutubeApi) {
 
     @PostConstruct
     fun foo() {
-        logger.warn { "dupa" }
-        println("DUPA")
-        getAllPlaylistItems(playlistId = "PLvFEJbMqWahVwOTF0cqnpemb_xZmn5Nmw",
-                apiKey = "AIzaSyDdUNZ4UXfB_YTxzT-AsuGTGa4GfuFMHeg")
-                .blockingSubscribe {
-                    println(it)
-                    println(it.size)
-                }
+//        logger.warn { "dupa" }
+//        println("DUPA")
+//        getAllPlaylistItems(playlistId = "PLvFEJbMqWahVwOTF0cqnpemb_xZmn5Nmw",
+//                apiKey = "AIzaSyDdUNZ4UXfB_YTxzT-AsuGTGa4GfuFMHeg")
+//                .blockingSubscribe {
+//                    println(it)
+//                    println(it.size)
+//                }
     }
 
     fun getAllPlaylistItems(playlistId: String,
