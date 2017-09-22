@@ -1,7 +1,8 @@
-package pl.humberd.youtube
+package pl.humberd.youtube.retrofit
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import pl.humberd.youtube.retrofit.api.YoutubeApi
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,7 +19,7 @@ class RetrofitConfiguration {
     }
 
     @Bean
-    fun createRetrofitService(retrofit: Retrofit): YoutubePlaylistItemsInterface {
-        return retrofit.create(YoutubePlaylistItemsInterface::class.java)
+    fun createRetrofitService(retrofit: Retrofit): YoutubeApi {
+        return retrofit.create(YoutubeApi::class.java)
     }
 }

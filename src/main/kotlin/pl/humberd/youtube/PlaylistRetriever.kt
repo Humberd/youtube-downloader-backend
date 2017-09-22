@@ -2,6 +2,7 @@ package pl.humberd.youtube
 
 import io.reactivex.Observable
 import org.springframework.stereotype.Service
+import pl.humberd.youtube.retrofit.api.YoutubeApi
 import javax.annotation.PostConstruct
 
 data class PlaylistItemsWrapper(
@@ -10,25 +11,26 @@ data class PlaylistItemsWrapper(
 )
 
 @Service
-class PlaylistRetriever(
-        val playlistService: YoutubePlaylistItemsInterface) {
+class PlaylistRetriever(val playlistService: YoutubeApi) {
 
     @PostConstruct
     fun foo() {
         getAllPlaylistItems(playlistId = "PLvFEJbMqWahVwOTF0cqnpemb_xZmn5Nmw",
                 apiKey = "AIzaSyDdUNZ4UXfB_YTxzT-AsuGTGa4GfuFMHeg")
-                .blockingSubscribe { println(it)
-                println(it.size)}
+                .blockingSubscribe {
+                    println(it)
+                    println(it.size)
+                }
     }
 
     fun getAllPlaylistItems(playlistId: String,
                             apiKey: String): Observable<ArrayList<String>> {
-        return Retriever(playlistService).getAllPlaylistItems(playlistId, apiKey);
+        return Retriever(playlistService).getAllPlaylistItems(playlistId, apiKey)
     }
 
-    class Retriever(val playlistService: YoutubePlaylistItemsInterface) {
-        private var nextPageToken = "";
-        private val playlistVideoIds = ArrayList<String>();
+    class Retriever(val playlistService: YoutubeApi) {
+        private var nextPageToken = ""
+        private val playlistVideoIds = ArrayList<String>()
 
         fun getPageOfPlaylistItems(playlistId: String,
                                    apiKey: String,
@@ -56,7 +58,8 @@ class PlaylistRetriever(
                     .doOnEach { it.value?.videoIds?.let { it1 -> playlistVideoIds.addAll(it1) } }
                     .repeatUntil {
                         println(nextPageToken)
-                        nextPageToken.isEmpty() }
+                        nextPageToken.isEmpty()
+                    }
                     .map { playlistVideoIds }
         }
     }
