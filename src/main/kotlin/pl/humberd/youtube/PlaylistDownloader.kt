@@ -1,7 +1,7 @@
 package pl.humberd.youtube
 
 import io.reactivex.Observable
-import mu.KotlinLogging
+import mu.KLogging
 import org.springframework.stereotype.Service
 import pl.humberd.youtube.retrofit.api.YoutubeApi
 import javax.annotation.PostConstruct
@@ -12,9 +12,9 @@ data class PlaylistItemsWrapper(
 )
 
 @Service
-class PlaylistRetriever(val playlistService: YoutubeApi) {
+class PlaylistDownloader(val playlistService: YoutubeApi) {
+    companion object: KLogging()
 
-    private var logger = KotlinLogging.logger {  };
     @PostConstruct
     fun foo() {
         logger.warn { "dupa" }
@@ -29,10 +29,10 @@ class PlaylistRetriever(val playlistService: YoutubeApi) {
 
     fun getAllPlaylistItems(playlistId: String,
                             apiKey: String): Observable<ArrayList<String>> {
-        return Retriever(playlistService).getAllPlaylistItems(playlistId, apiKey)
+        return Downloader(playlistService).getAllPlaylistItems(playlistId, apiKey)
     }
 
-    class Retriever(val playlistService: YoutubeApi) {
+    class Downloader(val playlistService: YoutubeApi) {
         private var nextPageToken = ""
         private val playlistVideoIds = ArrayList<String>()
 
