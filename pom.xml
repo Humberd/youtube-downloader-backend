@@ -104,6 +104,11 @@
             <artifactId>google-api-services-youtube</artifactId>
             <version>v3-rev184-1.22.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>RELEASE</version>
+        </dependency>
     </dependencies>
 
     <build>
