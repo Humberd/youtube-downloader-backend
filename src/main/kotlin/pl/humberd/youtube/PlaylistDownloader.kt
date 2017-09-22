@@ -17,7 +17,6 @@ class PlaylistDownloader(val playlistService: YoutubeApi) {
 
     @PostConstruct
     fun foo() {
-
 //        logger.warn { "dupa" }
 //        println("DUPA")
 //        getAllPlaylistItems(playlistId = "PLvFEJbMqWahVwOTF0cqnpemb_xZmn5Nmw",
