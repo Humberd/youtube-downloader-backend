@@ -1,5 +1,9 @@
 node {
 
+    stage("Cleanup") {
+        deleteDir()
+    }
+
     stage("Checkout") {
         git "https://github.com/Humberd/youtube-downloader-backend.git"
     }
@@ -10,9 +14,14 @@ node {
         }
     }
 
-    dockerComposeFile="docker-compose.quazarus.yml"
     stage("Deploy") {
+        dockerComposeFile = "docker-compose.quazarus.yml"
+
         sh "docker-compose -f ${dockerComposeFile} down --rmi all --remove-orphans"
         sh "docker-compose -f ${dockerComposeFile} up -d"
+    }
+
+    stage("Cleanup") {
+        deleteDir()
     }
 }
