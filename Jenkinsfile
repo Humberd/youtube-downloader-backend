@@ -1,8 +1,6 @@
 node {
 
     stage("Pre Cleanup") {
-        sh "pwd"
-        sh "ls -al"
         deleteDir()
     }
 
@@ -24,8 +22,6 @@ node {
     }
 
     stage("Post Cleanup") {
-        sh "ls -al"
         deleteDir()
-        sh "ls -al"
     }
 }
