@@ -1,4 +1,10 @@
 node {
+    properties([buildDiscarder(logRotator(
+            artifactDaysToKeepStr: '',
+            artifactNumToKeepStr: '2',
+            daysToKeepStr: '',
+            numToKeepStr: '')),
+                pipelineTriggers([])])
 
     stage("Pre Cleanup") {
         deleteDir()
