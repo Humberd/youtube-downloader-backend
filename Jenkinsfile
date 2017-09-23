@@ -12,7 +12,7 @@ node {
 
     dockerComposeFile="docker-compose.quazarus.yml"
     stage("Deploy") {
-        sh "docker-compose -f ${dockerComposeFile} --rmi all --remove-orphans"
+        sh "docker-compose -f ${dockerComposeFile} down --rmi all --remove-orphans"
         sh "docker-compose -f ${dockerComposeFile} up -d"
     }
 }
