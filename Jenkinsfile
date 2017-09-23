@@ -29,8 +29,11 @@ node {
 
     stage("Deploy") {
         dockerComposeFile = "docker-compose.quazarus.yml"
-        setCommitEnv()
-        setBuildNumberEnv()
+
+        environment {
+            COMMIT = getCommit()
+            BUILD_NO = getBuildNumber()
+        }
 
         sh "docker-compose -f ${dockerComposeFile} down --rmi all --remove-orphans"
         sh "docker-compose -f ${dockerComposeFile} up -d"
@@ -41,21 +44,13 @@ node {
     }
 }
 
-def setCommitEnv() {
-    COMMIT = sh(
+def getCommit() {
+    return sh(
             script: "git show -s",
             returnStdout: true
     ).trim()
-    println COMMIT
-
-    environment {
-        COMMIT = COMMIT
-    }
 }
 
-def setBuildNumberEnv() {
-    BUILD_NUMBER = env.BUILD_NUMBER
-    environment {
-        BUILD_NUMBER: BUILD_NUMBER
-    }
+def getBuildNumber() {
+    return env.BUILD_NUMBER
 }
