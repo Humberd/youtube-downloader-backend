@@ -8,6 +8,6 @@ class HelloWorldController {
 
     @GetMapping("/")
     fun helloWorld(): String {
-        return "Hello from Springggg!!! This is a container id: ${System.getenv("HOSTNAME")}"
+        return "Hello from Springggg!!! This is a container id: ${System.getenv("HOSTNAME")}. And I've changed"
     }
 }
