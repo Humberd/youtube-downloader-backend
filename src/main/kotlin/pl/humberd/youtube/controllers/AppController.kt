@@ -1,15 +1,17 @@
 package pl.humberd.youtube.controllers
 
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController()
-class HelloWorldController {
+@RequestMapping("/app")
+class AppController {
 
-    @GetMapping("/", produces = arrayOf("text/html"))
-    fun helloWorld(): String {
+    @GetMapping("/status", produces = arrayOf("text/html"))
+    fun getStatus(): String {
         return """
-            <h2>Hello from Spring!</h2>
+            <h2>Status</h2>
             <div>Container Id: ${System.getenv("HOSTNAME")}</div>
             <div>Build number: ${System.getenv("BUILD_NO")}</div>
             <hr>
