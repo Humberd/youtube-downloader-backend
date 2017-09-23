@@ -36,7 +36,9 @@ node {
         dockerComposeFile = "docker-compose.quazarus.yml"
 
 
-        sh "printenv"
+        steps {
+            sh "printenv"
+        }
 
         sh "docker-compose -f ${dockerComposeFile} down --rmi all --remove-orphans"
         sh "docker-compose -f ${dockerComposeFile} up -d"
