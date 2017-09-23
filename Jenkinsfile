@@ -4,7 +4,7 @@ node {
             artifactNumToKeepStr: '2',
             daysToKeepStr: '',
             numToKeepStr: '')),
-                pipelineTriggers([])])
+                pipelineTriggers([githubPush()])])
 
     stage("Pre Cleanup") {
         deleteDir()
