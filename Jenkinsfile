@@ -29,6 +29,8 @@ node {
 
     stage("Deploy") {
         dockerComposeFile = "docker-compose.quazarus.yml"
+        setCommitEnv()
+        setBuildNumberEnv()
 
         sh "docker-compose -f ${dockerComposeFile} down --rmi all --remove-orphans"
         sh "docker-compose -f ${dockerComposeFile} up -d"
@@ -36,5 +38,23 @@ node {
 
     stage("Post Cleanup") {
         deleteDir()
+    }
+}
+
+def setCommitEnv() {
+    COMMIT = sh(
+            script: "git show -s",
+            returnStdout: true
+    ).trim()
+
+    environment {
+        COMMIT = COMMIT
+    }
+}
+
+def setBuildNumberEnv() {
+    BUILD_NUMBER = ${env.BUILD_NUMBER}
+    environmane {
+        BUILD_NUMBER: BUILD_NUMBER
     }
 }
