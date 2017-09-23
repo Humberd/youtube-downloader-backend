@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController()
 class HelloWorldController {
 
-    @GetMapping("/",produces = arrayOf("text/html"))
+    @GetMapping("/", produces = arrayOf("text/html"))
     fun helloWorld(): String {
         return """
             <h2>Hello from Spring!</h2>
