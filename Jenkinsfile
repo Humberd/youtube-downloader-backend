@@ -20,12 +20,6 @@ node {
         }
     }
 
-    stage("Package") {
-        withMaven(maven: "Maven") {
-            sh "mvn package -DskipTests=true"
-        }
-    }
-
     stage("Deploy") {
         dockerComposeFile = "docker-compose.quazarus.yml"
 
