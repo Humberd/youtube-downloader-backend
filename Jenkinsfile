@@ -7,6 +7,11 @@ node {
                 disableConcurrentBuilds(),
                 pipelineTriggers([githubPush()])])
 
+    environment {
+        COMMIT = getCommit()
+        BUILD_NO = getBuildNumber()
+    }
+
     stage("Pre Cleanup") {
         deleteDir()
     }
@@ -30,19 +35,11 @@ node {
     stage("Deploy") {
         dockerComposeFile = "docker-compose.quazarus.yml"
 
+
+        sh "printenv"
+
         sh "docker-compose -f ${dockerComposeFile} down --rmi all --remove-orphans"
-
-        environment {
-            COMMIT = getCommit()
-            BUILD_NO = getBuildNumber()
-
-            println env.COMMIT
-            sh "docker-compose -f ${dockerComposeFile} up -d"
-        }
-
-
-
-
+        sh "docker-compose -f ${dockerComposeFile} up -d"
     }
 
     stage("Post Cleanup") {
