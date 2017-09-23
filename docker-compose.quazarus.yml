@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - VIRTUAL_HOST: youtube-downloader.quazarus.com
-      - VIRTUAL_PORT: 8080
+      VIRTUAL_HOST: youtube-downloader.quazarus.com
+      VIRTUAL_PORT: 8080
     networks:
       - nginx-proxy
 
