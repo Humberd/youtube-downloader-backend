@@ -31,13 +31,15 @@ node {
         dockerComposeFile = "docker-compose.quazarus.yml"
 
 
-        def COMMIT = getCommit()
-        def BUILD_NO = getBuildNumber()
+        withEnv([
+                "COMMIT=${getCommit()}",
+                "BUILD_NO=${getBuildNumber()}"
+        ]) {
+            sh "printenv"
 
-        sh "printenv"
-
-        sh "docker-compose -f ${dockerComposeFile} down --rmi all --remove-orphans"
-        sh "docker-compose -f ${dockerComposeFile} up -d"
+            sh "docker-compose -f ${dockerComposeFile} down --rmi all --remove-orphans"
+            sh "docker-compose -f ${dockerComposeFile} up -d"
+        }
     }
 
     stage("Post Cleanup") {
