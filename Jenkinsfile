@@ -1,6 +1,7 @@
 node {
 
     stage("Pre Cleanup") {
+        sh "pwd"
         sh "ls -al"
         deleteDir()
     }
