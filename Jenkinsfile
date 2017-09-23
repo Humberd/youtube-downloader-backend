@@ -34,6 +34,7 @@ node {
             COMMIT = getCommit()
             BUILD_NO = getBuildNumber()
         }
+        println env.COMMIT
 
         sh "docker-compose -f ${dockerComposeFile} down --rmi all --remove-orphans"
         sh "docker-compose -f ${dockerComposeFile} up -d"
