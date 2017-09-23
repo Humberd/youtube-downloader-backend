@@ -53,8 +53,8 @@ def setCommitEnv() {
 }
 
 def setBuildNumberEnv() {
-    BUILD_NUMBER = ${env.BUILD_NUMBER}
-    environmane {
+    BUILD_NUMBER = env.BUILD_NUMBER
+    environment {
         BUILD_NUMBER: BUILD_NUMBER
     }
 }
