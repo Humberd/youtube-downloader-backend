@@ -15,9 +15,9 @@ class YoutubeApiMock(var gson: Gson)
                                   pageToken: String): Observable<PlayListItems> {
 
         val fileName = when {
-            pageToken.equals("") -> "./mocks/PlaylistItems.firstPage.json"
-            pageToken.equals("middlePageToken") -> "./mocks/PlaylistItems.middlePage.json"
-            pageToken.equals("lastPageToken") -> "./mocks/PlaylistItems.lastPage.json"
+            pageToken.equals("") -> "src/test/resources/mocks/PlaylistItems.firstPage.json"
+            pageToken.equals("middlePageToken") -> "src/test/resources//mocks/PlaylistItems.middlePage.json"
+            pageToken.equals("lastPageToken") -> "src/test/resources//mocks/PlaylistItems.lastPage.json"
             else -> throw IllegalArgumentException("Invalid pageToken")
         }
 
