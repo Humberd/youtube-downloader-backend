@@ -14,7 +14,7 @@ class HelloWorldController {
             <div>Build number: ${System.getenv("BUILD_NO")}</div>
             <hr>
             <div>
-                <pre>${System.getenv("COMMIT")}></pre>
+                <pre>${System.getenv("COMMIT")}</pre>
             </div>
             """
     }

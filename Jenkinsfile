@@ -1,4 +1,8 @@
 node {
+    /**
+     * Making sure, that there are only at most 2 artifacts stored on a server,
+     * because We don't want to waste a storage on a server, do we?
+     */
     properties([buildDiscarder(logRotator(
             artifactDaysToKeepStr: '',
             artifactNumToKeepStr: '2',
@@ -30,13 +34,13 @@ node {
     stage("Deploy") {
         dockerComposeFile = "docker-compose.quazarus.yml"
 
-
+        /**
+         * Setting environment variables only for a docker container
+         */
         withEnv([
                 "COMMIT=${getCommit()}",
                 "BUILD_NO=${getBuildNumber()}"
         ]) {
-            sh "printenv"
-
             sh "docker-compose -f ${dockerComposeFile} down --rmi all --remove-orphans"
             sh "docker-compose -f ${dockerComposeFile} up -d"
         }
