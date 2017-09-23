@@ -1,7 +1,8 @@
 node {
 
     stage("Cleanup") {
-        deleteDir()
+        sh "ls -al"
+//        deleteDir()
     }
 
     stage("Checkout") {
@@ -22,6 +23,8 @@ node {
     }
 
     stage("Cleanup") {
-        deleteDir()
+        sh "ls -al"
+//        deleteDir()
+//        sh "ls -al"
     }
 }
