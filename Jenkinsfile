@@ -1,8 +1,8 @@
 node {
 
-    stage("Cleanup") {
+    stage("Pre Cleanup") {
         sh "ls -al"
-//        deleteDir()
+        deleteDir()
     }
 
     stage("Checkout") {
@@ -22,9 +22,9 @@ node {
         sh "docker-compose -f ${dockerComposeFile} up -d"
     }
 
-    stage("Cleanup") {
+    stage("Post Cleanup") {
         sh "ls -al"
-//        deleteDir()
-//        sh "ls -al"
+        deleteDir()
+        sh "ls -al"
     }
 }
