@@ -1,13 +1,18 @@
 package pl.humberd.youtube.controllers
 
+import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController()
 class HelloWorldController {
 
-    @GetMapping("/")
+    @GetMapping("/",produces = arrayOf("text/html"))
     fun helloWorld(): String {
-        return "Hello from Springggg!!! This is a container id: ${System.getenv("HOSTNAME")}. And I've changed"
+        return """
+            <h2>Hello from Spring!</h2>
+            <div>Container Id: ${System.getenv("HOSTNAME")}</div>
+            """
     }
 }
