@@ -4,6 +4,7 @@ node {
             artifactNumToKeepStr: '2',
             daysToKeepStr: '',
             numToKeepStr: '')),
+                disableConcurrentBuilds(),
                 pipelineTriggers([githubPush()])])
 
     stage("Pre Cleanup") {
