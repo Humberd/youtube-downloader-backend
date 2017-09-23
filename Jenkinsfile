@@ -30,14 +30,19 @@ node {
     stage("Deploy") {
         dockerComposeFile = "docker-compose.quazarus.yml"
 
+        sh "docker-compose -f ${dockerComposeFile} down --rmi all --remove-orphans"
+
         environment {
             COMMIT = getCommit()
             BUILD_NO = getBuildNumber()
-        }
-        println env.COMMIT
 
-        sh "docker-compose -f ${dockerComposeFile} down --rmi all --remove-orphans"
-        sh "docker-compose -f ${dockerComposeFile} up -d"
+            println env.COMMIT
+            sh "docker-compose -f ${dockerComposeFile} up -d"
+        }
+
+
+
+
     }
 
     stage("Post Cleanup") {
