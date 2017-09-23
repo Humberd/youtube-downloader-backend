@@ -2,6 +2,7 @@ version: "2"
 
 services:
   youtube-downloader-backend:
+    container_name: "youtube-downloader-backend"
     build:
       context: .
       dockerfile: Dockerfile

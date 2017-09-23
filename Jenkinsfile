@@ -45,7 +45,7 @@ def setCommitEnv() {
     COMMIT = sh(
             script: "git show -s",
             returnStdout: true
-    ).trim()
+    )
 
     environment {
         COMMIT = COMMIT
