@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
+import org.springframework.test.context.TestPropertySource
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import pl.humberd.youtube.gson.GsonConfiguration
 import pl.humberd.youtube.mocks.MocksConfiguration
@@ -18,8 +19,8 @@ import pl.humberd.youtube.services.PlaylistDownloader
         PlaylistDownloader::class,
         GsonConfiguration::class
 ))
+@TestPropertySource(locations = arrayOf("classpath:application.properties"))
 class PlaylistDownloaderTests {
-
     @Autowired
     lateinit var playlistDownloader: PlaylistDownloader
 
