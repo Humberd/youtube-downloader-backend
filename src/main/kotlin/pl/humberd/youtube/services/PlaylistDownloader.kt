@@ -1,15 +1,11 @@
-package pl.humberd.youtube
+package pl.humberd.youtube.services
 
 import io.reactivex.Observable
 import mu.KLogging
 import org.springframework.stereotype.Service
+import pl.humberd.youtube.models.PlaylistItemsWrapper
 import pl.humberd.youtube.retrofit.api.YoutubeApi
 import javax.annotation.PostConstruct
-
-data class PlaylistItemsWrapper(
-        val nextPageToken: String,
-        val videoIds: List<String>
-)
 
 @Service
 class PlaylistDownloader(val playlistService: YoutubeApi) {
