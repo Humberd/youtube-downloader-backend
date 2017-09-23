@@ -11,6 +11,8 @@ class HelloWorldController {
         return """
             <h2>Hello from Spring!</h2>
             <div>Container Id: ${System.getenv("HOSTNAME")}</div>
+            <div>Build number: ${System.getenv("BUILD_NO")}</div>
+            <div>Commit Hash: ${System.getenv("COMMIT_HASH")}</div>
             """
     }
 }
