@@ -1,6 +1,6 @@
 package pl.humberd.youtube.services
 
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -11,7 +11,6 @@ import org.springframework.test.context.TestPropertySource
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import pl.humberd.youtube.gson.GsonConfiguration
 import pl.humberd.youtube.mocks.MocksConfiguration
-import pl.humberd.youtube.services.PlaylistDownloader
 
 @ExtendWith(SpringExtension::class)
 //@JsonTest
@@ -36,6 +35,9 @@ class PlaylistDownloaderTests {
             val allPlaylistVideosIds = playlistDownloader.getAllPlaylistItems("", "")
 
             assertEquals(allPlaylistVideosIds.size, 5)
+            allPlaylistVideosIds.forEach {
+                assert(it.isNotEmpty())
+            }
         }
     }
 
