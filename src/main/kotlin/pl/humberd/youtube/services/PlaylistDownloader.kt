@@ -9,6 +9,7 @@ import pl.humberd.youtube.retrofit.api.YoutubeApi
 class PlaylistDownloader(val playlistService: YoutubeApi) {
     companion object: KLogging()
 
+
     fun getPageOfPlaylistItems(playlistId: String,
                                apiKey: String,
                                pageToken: String): PlaylistItemsWrapper {
@@ -19,8 +20,9 @@ class PlaylistDownloader(val playlistService: YoutubeApi) {
                 pageToken = pageToken)
                 .blockingFirst()
 
-        val videoIds = ArrayList<String>(playlistItems.items.size)
+        logger.info { "Getting a page of playlist items for a playlist '$playlistId'" }
 
+        val videoIds = ArrayList<String>(playlistItems.items.size)
         playlistItems.items.forEach { playListItem ->
             videoIds.add(playListItem.snippet.resourceId.videoId)
         }
