@@ -1,4 +1,4 @@
-package pl.humberd.youtube
+package pl.humberd.youtube.services
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
