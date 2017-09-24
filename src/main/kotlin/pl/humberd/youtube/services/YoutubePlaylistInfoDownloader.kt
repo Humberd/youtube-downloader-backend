@@ -6,9 +6,8 @@ import pl.humberd.youtube.models.PlaylistItemsWrapper
 import pl.humberd.youtube.retrofit.api.YoutubeApi
 
 @Service
-class PlaylistDownloader(val playlistService: YoutubeApi) {
+class YoutubePlaylistInfoDownloader(val playlistService: YoutubeApi) {
     companion object: KLogging()
-
 
     fun getPageOfPlaylistItems(playlistId: String,
                                apiKey: String,
@@ -30,9 +29,11 @@ class PlaylistDownloader(val playlistService: YoutubeApi) {
         return PlaylistItemsWrapper(playlistItems.nextPageToken ?: "", videoIds)
     }
 
+    /**
+     * Gets ids of every video on a youtube playlist
+     */
     fun getAllPlaylistItems(playlistId: String,
                             apiKey: String): List<String> {
-
         var nextPageToken = "";
         val videoIds = arrayListOf<String>()
 
