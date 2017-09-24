@@ -1,68 +1,46 @@
 package pl.humberd.youtube.services
 
-import io.reactivex.Observable
 import mu.KLogging
 import org.springframework.stereotype.Service
 import pl.humberd.youtube.models.PlaylistItemsWrapper
 import pl.humberd.youtube.retrofit.api.YoutubeApi
-import javax.annotation.PostConstruct
 
 @Service
 class PlaylistDownloader(val playlistService: YoutubeApi) {
     companion object: KLogging()
 
-    @PostConstruct
-    fun foo() {
+    fun getPageOfPlaylistItems(playlistId: String,
+                               apiKey: String,
+                               pageToken: String): PlaylistItemsWrapper {
 
-//        logger.warn { "dupa" }
-//        println("DUPA")
-//        getAllPlaylistItems(playlistId = "PLvFEJbMqWahVwOTF0cqnpemb_xZmn5Nmw",
-//                apiKey = "AIzaSyDdUNZ4UXfB_YTxzT-AsuGTGa4GfuFMHeg")
-//                .blockingSubscribe {
-//                    println(it)
-//                    println(it.size)
-//                }
+        val playlistItems = playlistService.getPlaylistItems(
+                playlistId = playlistId,
+                apiKey = apiKey,
+                pageToken = pageToken)
+                .blockingFirst()
+
+        val videoIds = ArrayList<String>(playlistItems.items.size)
+
+        playlistItems.items.forEach { playListItem ->
+            videoIds.add(playListItem.snippet.resourceId.videoId)
+        }
+
+        return PlaylistItemsWrapper(playlistItems.nextPageToken ?: "", videoIds)
     }
 
     fun getAllPlaylistItems(playlistId: String,
-                            apiKey: String): Observable<ArrayList<String>> {
-        return Downloader(playlistService).getAllPlaylistItems(playlistId, apiKey)
+                            apiKey: String): List<String> {
+
+        var nextPageToken = "";
+        val videoIds = arrayListOf<String>()
+
+        do {
+            val (currentNextPageToken, currentVideoIds) = getPageOfPlaylistItems(playlistId, apiKey, nextPageToken)
+            videoIds.addAll(currentVideoIds)
+            nextPageToken = currentNextPageToken
+        } while (nextPageToken.isNotEmpty())
+        return videoIds;
     }
 
-    class Downloader(val playlistService: YoutubeApi) {
-        private var nextPageToken = ""
-        private val playlistVideoIds = ArrayList<String>()
-
-        fun getPageOfPlaylistItems(playlistId: String,
-                                   apiKey: String,
-                                   pageToken: String): Observable<PlaylistItemsWrapper> {
-            return playlistService.getPlaylistItems(
-                    playlistId = playlistId,
-                    apiKey = apiKey,
-                    pageToken = pageToken)
-                    .map { resonse ->
-                        val videoIds = ArrayList<String>(resonse.items.size)
-                        resonse.items.forEach { playListItem ->
-                            videoIds.add(playListItem.snippet.resourceId.videoId)
-                        }
-
-//                    println("$pageToken and ${resonse.nextPageToken}")
-
-                        PlaylistItemsWrapper(resonse.nextPageToken ?: "", videoIds)
-                    }
-        }
-
-        fun getAllPlaylistItems(playlistId: String,
-                                apiKey: String): Observable<ArrayList<String>> {
-            return Observable.defer { getPageOfPlaylistItems(playlistId, apiKey, nextPageToken) }
-                    .doOnEach { nextPageToken = it.value?.nextPageToken ?: "" }
-                    .doOnEach { it.value?.videoIds?.let { it1 -> playlistVideoIds.addAll(it1) } }
-                    .repeatUntil {
-                        println(nextPageToken)
-                        nextPageToken.isEmpty()
-                    }
-                    .map { playlistVideoIds }
-        }
-    }
 
 }

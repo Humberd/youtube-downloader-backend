@@ -4,10 +4,10 @@ import com.google.gson.Gson
 import io.reactivex.Observable
 import pl.humberd.youtube.models.PlayListItems
 import pl.humberd.youtube.retrofit.api.YoutubeApi
+import retrofit2.Call
 import java.io.FileReader
 
-class YoutubeApiMock(var gson: Gson)
-    : YoutubeApi {
+open class YoutubeApiMock(var gson: Gson) : YoutubeApi {
     override fun getPlaylistItems(part: String,
                                   maxResults: Int,
                                   playlistId: String,
